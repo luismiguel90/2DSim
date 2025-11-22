@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuração da Atividade 2DSim</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+        select, input[type=number] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background-color: #005a9e;
+        }
+        .note {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Configuração da Atividade<br>
+            <span style="color:#0078d4;">2DSim</span>
+        </h1>
+
+
+        <label for="map_selection">Mapa:</label>
+        <select id="map_selection" name="map_selection">
+            <option value="mapa_1">Mapa 1</option>
+            <option value="mapa_2">Mapa 2</option>
+            <option value="mapa_3">Mapa 3</option>
+        </select>
+
+        <label for="dificuldade">Dificuldade:</label>
+        <select id="dificuldade" name="dificuldade">
+            <option value="fácil">Fácil</option>
+            <option value="médio">Médio</option>
+            <option value="difícil">Difícil</option>
+        </select>
+
+        <label for="max_steps">Máximo de passos:</label>
+        <input type="number" id="max_steps" name="max_steps" min="10" max="200" value="50">
+
+        <button id="simulateBtn">Simular Envio</button>
+        <p class="note">Este botão é apenas para testes locais.</p>
+    </div>
+
+    <script>
+        document.getElementById("simulateBtn").addEventListener("click", function() {
+            const map = document.getElementById("map_selection").value;
+            const diff = document.getElementById("dificuldade").value;
+            const steps = document.getElementById("max_steps").value;
+
+            const activityURL = `${window.location.origin}/api/deploy?activity_type=2DSim&instanceID=instancia_1`;
+
+            alert(
+                `Simulação de envio:\nMapa: ${map}\nDificuldade: ${diff}\nMax Steps: ${steps}\nURL de acesso: ${activityURL}`
+            );
+        });
+    </script>
+</body>
+</html>
