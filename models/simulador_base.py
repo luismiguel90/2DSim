@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 
 class SimuladorBase(ABC):
-    # Classe para todos os simuladores 2D.
+    '''
+        Subjeto abstrato para o o padrão Proxy
+        Define a interface entre Proxy e o simulador real
+    '''
 
     def __init__(self, activity_id, student_id, config):
         self.activity_id = activity_id
