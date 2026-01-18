@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify, request
 import random
 from factories.activity_factory import ActivityFactory
+from commands.move_commands import *                # importar tudo
+from commands.object_commands import PickObject, DropObject
 
 
 
@@ -188,6 +190,38 @@ def provide_activity():
         "studentID": student_id,
         "config": json_params
     })
+
+
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# Endpoint para testar a execução dos comandos
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+@app.route("/api/execute_commands", methods=["POST"])
+def execute_commands():
+    data = request.get_json()
+
+    activity_id = data["activityID"]
+    student_id = data["Inven!RAstdID"]
+
+    simulador = DB["activity_instances"][activity_id]["students"][student_id]["object"]
+
+    # Exemplo de possíveis comandos vindo do aluno
+    simulador.adicionar_comando(MoveUp())
+    simulador.adicionar_comando(MoveRight())
+    simulador.adicionar_comando(PickObject())
+
+    resultados = simulador.executar_comandos()
+
+    return jsonify({
+        "success": True,
+        "resultados": resultados,
+        "posicao_final": {
+            "x": simulador.x, 
+            "y": simulador.y},
+        "carregando_objeto": simulador.carrying
+    })
+
 
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
